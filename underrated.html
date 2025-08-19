@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Underrated Movies</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0d0d0d;
+      color: #fff;
+    }
+
+    header {
+      text-align: center;
+      padding: 20px;
+      background: #1a1a1a;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      color: #ffcc00;
+    }
+
+    .movie-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .movie-card {
+      background: #1a1a1a;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .movie-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 20px rgba(255,204,0,0.5);
+    }
+
+    .movie-card img {
+      width: 100%;
+      height: 350px;
+      object-fit: cover;
+    }
+
+    .movie-info {
+      padding: 15px;
+      text-align: center;
+    }
+
+    .movie-info h3 {
+      margin: 0;
+      font-size: 1.2rem;
+      color: #ffcc00;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🎬 Underrated Movies</h1>
+    <p>Hidden gems you shouldn’t miss!</p>
+  </header>
+
+  <section class="movie-grid">
+    <!-- Movie 1 -->
+    <div class="movie-card">
+      <img src="https://upload.wikimedia.org/wikipedia/en/7/7e/Whiplash_poster.jpg" alt="Whiplash">
+      <div class="movie-info">
+        <h3>Whiplash</h3>
+      </div>
+    </div>
+
+    <!-- Movie 2 -->
+    <div class="movie-card">
+      <img src="https://upload.wikimedia.org/wikipedia/en/1/17/Nightcrawlerfilm.jpg" alt="Nightcrawler">
+      <div class="movie-info">
+        <h3>Nightcrawler</h3>
+      </div>
+    </div>
+
+    <!-- Movie 3 -->
+    <div class="movie-card">
+      <img src="https://upload.wikimedia.org/wikipedia/en/f/f9/Prisoners2013Poster.jpg" alt="Prisoners">
+      <div class="movie-info">
+        <h3>Prisoners</h3>
+      </div>
+    </div>
+
+    <!-- Movie 4 -->
+    <div class="movie-card">
+      <img src="https://upload.wikimedia.org/wikipedia/en/c/c3/Arrival%2C_Movie_Poster.jpg" alt="Arrival">
+      <div class="movie-info">
+        <h3>Arrival</h3>
+      </div>
+    </div>
+
+  </section>
+
+</body>
+</html>
