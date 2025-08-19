@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CineScope — Movie Blog</title>
+  <meta name="description" content="Movie reviews, underrated gems, and top movie lists."/>
+  <style>
+    /* ----------------------
+       Design System
+       ---------------------- */
+    :root {
+      --bg: #0b0f14;
+      --card: #111824;
+      --soft: #162231;
+      --text: #e8eef6;
+      --muted: #a7b4c4;
+      --brand: #6dd6ff;
+      --brand-2: #a770ff;
+      --accent: #00ffa3;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 18px;
+    }
+    :root.light {
+      --bg: #f7fafc;
+      --card: #ffffff;
+      --soft: #e8eef6;
+      --text: #0b0f14;
+      --muted: #4b5563;
+      --brand: #2563eb;
+      --brand-2: #a855f7;
+      --accent: #16a34a;
+      --shadow: 0 10px 20px rgba(2,6,23,.08);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      background: radial-gradient(1200px 800px at 10% -10%, rgba(109,214,255,.08), transparent 60%),
+                  radial-gradient(800px 600px at 110% 10%, rgba(167,112,255,.08), transparent 60%),
+                  var(--bg);
+      color: var(--text);
+      letter-spacing: .2px;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    .container { width: min(1200px, 92%); margin-inline: auto; }
+
+    /* ----------------------
+       Fancy Header
+       ---------------------- */
+    header {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: saturate(1.2) blur(10px);
+      background: linear-gradient(180deg, rgba(2,6,23,.7), rgba(2,6,23,.35));
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .nav { display:flex; align-items:center; justify-content:space-between; padding: 14px 0; }
+    .brand { display:flex; align-items:center; gap:10px; font-weight: 800; letter-spacing:.4px; }
+    .logo {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: conic-gradient(from 180deg, var(--brand), var(--brand-2), var(--accent), var(--brand));
+      box-shadow: 0 4px 14px rgba(109,214,255,.4);
+      transform: rotate(8deg);
+      animation: spin-slow 14s linear infinite;
+    }
+    @keyframes spin-slow { to { transform: rotate(368deg); } }
+
+    .nav-links { display:flex; gap: 18px; align-items:center; }
+    .nav-links a { padding: 8px 12px; border-radius: 12px; color: var(--muted); font-weight:600; }
+    .nav-links a:hover { background: rgba(109,214,255,.1); color: var(--text); }
+
+    .toggle, .menu-btn { display:inline-flex; align-items:center; gap: 8px; }
+    .toggle button, .menu-btn {
+      background: var(--card); color: var(--text);
+      border: 1px solid rgba(255,255,255,.08);
+      padding: 8px 12px; border-radius: 12px; cursor:pointer;
+      box-shadow: var(--shadow);
+    }
+
+    .mobile-nav { display:none; }
+    @media (max-width: 800px) {
+      .nav-links { display:none; }
+      .mobile-nav { display:flex; gap:10px; align-items:center; }
+    }
+
+    /* ----------------------
+       Hero Section
+       ---------------------- */
+    .hero {
+      position: relative; isolation:isolate; overflow:hidden;
+      padding: 48px 0 26px;
+    }
+    .hero::before, .hero::after {
+      content:""; position:absolute; inset: -20% -10% auto -10%; height: 80%; z-index:-1;
+      background: radial-gradient(closest-side, rgba(109,214,255,.15), transparent 70%);
+      transform: translateY(-20px) rotate(8deg);
+      animation: floaty 9s ease-in-out infinite;
+    }
+    .hero::after { inset: auto -10% -30% -10%; background: radial-gradient(closest-side, rgba(167,112,255,.15), transparent 70%); animation-duration: 12s; }
+    @keyframes floaty { 50% { transform: translateY(10px) rotate(4deg);} }
+
+    .hero-grid {
+      display:grid; grid-template-columns: 1.3fr 1fr; gap: 22px; align-items:center;
+    }
+    @media (max-width: 900px) { .hero-grid { grid-template-columns: 1fr; } }
+
+    .badge { display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px; font-size: 12px; color: var(--muted); border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04); }
+    .title { font-size: clamp(28px, 5vw, 48px); margin: 10px 0 6px; line-height:1.1; }
+    .subtitle { color: var(--muted); font-size: clamp(14px, 2.7vw, 17px); }
+
+    .cta { display:flex; gap:12px; margin-top:18px; flex-wrap:wrap; }
+    .btn {
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      color:#06111b; font-weight: 800; padding: 12px 16px; border-radius:14px; border:0; cursor:pointer; transition: transform .1s ease; box-shadow: 0 10px 25px rgba(109,214,255,.35);
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn.secondary { background: transparent; color: var(--text); border:1px solid rgba(255,255,255,.12); box-shadow: none; }
+
+    .hero-card {
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: var(--radius);
+      padding: 16px; box-shadow: var(--shadow);
+    }
+    .stats { display:grid; grid-template-columns: repeat(3,1fr); gap:10px; margin-top:10px; }
+    .stat { background: var(--card); border:1px solid rgba(255,255,255,.08); padding:12px; border-radius: 14px; text-align:center; }
+    .stat b { font-size: 18px; display:block; }
+
+    /* ----------------------
+       Filters + Search
+       ---------------------- */
+    .controls { display:flex; align-items:center; justify-content:space-between; gap:12px; margin: 24px 0 8px; flex-wrap:wrap; }
+    .tabs { display:flex; gap:8px; flex-wrap:wrap; }
+    .tab { padding: 8px 12px; border-radius: 999px; background: var(--card); border:1px solid rgba(255,255,255,.08); color: var(--muted); cursor:pointer; }
+    .tab.active { background: linear-gradient(135deg, rgba(109,214,255,.15), rgba(167,112,255,.15)); color: var(--text); border-color: rgba(255,255,255,.18); }
+    .search { flex:1; min-width: 220px; }
+    .search input { width:100%; padding: 10px 12px; border-radius: 12px; background: var(--card); border:1px solid rgba(255,255,255,.08); color: var(--text); }
+
+    /* ----------------------
+       Cards Grid
+       ---------------------- */
+    .grid { display:grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
+    .card {
+      grid-column: span 4; min-height: 320px; background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border: 1px solid rgba(255,255,255,.08); border-radius: var(--radius); overflow:hidden; position:relative; box-shadow: var(--shadow);
+      transform: translateY(8px); opacity: 0; transition: transform .6s cubic-bezier(.2,.7,.2,1), opacity .6s ease;
+    }
+    .card.revealed { transform: none; opacity: 1; }
+    .card.large { grid-column: span 6; }
+    @media (max-width: 1100px) { .card { grid-column: span 6; } }
+    @media (max-width: 700px) { .card, .card.large { grid-column: span 12; } }
+
+    .thumb { height: 54%; background:
+      radial-gradient(120% 80% at 80% 20%, rgba(109,214,255,.35), transparent 60%),
+      radial-gradient(120% 80% at 10% 80%, rgba(167,112,255,.35), transparent 60%),
+      linear-gradient(180deg, #0e1726, #0b0f14);
+      position:relative; overflow:hidden;
+    }
+    .thumb::after { content:""; position:absolute; inset:0; background: repeating-linear-gradient(90deg, transparent 0 6px, rgba(255,255,255,.04) 6px 7px); transform: translateX(-20%); animation: shimmer 8s linear infinite; }
+    @keyframes shimmer { to { transform: translateX(20%); } }
+
+    .label { position:absolute; top: 12px; left: 12px; padding:6px 10px; border-radius: 999px; font-size: 12px; background: rgba(0,0,0,.5); border: 1px solid rgba(255,255,255,.18); }
+
+    .content { padding: 14px 14px 16px; display:flex; flex-direction:column; gap:8px; }
+    .meta { display:flex; gap:10px; align-items:center; color: var(--muted); font-size: 12px; }
+    .title-card { font-size: 18px; font-weight: 800; }
+    .excerpt { color: var(--muted); font-size: 14px; }
+
+    .card:hover { outline: 1px solid rgba(109,214,255,.35); }
+    .card .readmore { margin-top:auto; display:inline-flex; align-items:center; gap:8px; font-weight:700; color: var(--brand); }
+
+    /* ----------------------
+       Social Strip
+       ---------------------- */
+    .social {
+      margin: 34px 0 16px; padding:16px; border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border: 1px solid rgba(255,255,255,.08);
+      display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;
+    }
+    .social .left { display:flex; align-items:center; gap:10px; }
+    .social .icons { display:flex; gap:10px; }
+    .icon-btn { display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius: 12px; background: var(--card); border:1px solid rgba(255,255,255,.08); font-weight:700; }
+    .icon { width: 18px; height: 18px; }
+
+    /* ----------------------
+       Footer
+       ---------------------- */
+    footer { margin: 26px 0 60px; color: var(--muted); }
+    .foot { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; }
+    .mini { display:flex; gap:10px; align-items:center; }
+
+    /* ----------------------
+       Utility
+       ---------------------- */
+    .hidden { display:none !important; }
+    .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <a href="#" aria-label="CineScope Home">CineScope</a>
+      </div>
+
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#reviews">Reviews</a>
+        <a href="underrated.html">Underrated</a>
+        <a href="#toplists">Top Lists</a>
+        <a href="#about">About</a>
+        <div class="toggle">
+          <button id="themeToggle" title="Toggle theme">🌙 Theme</button>
+        </div>
+      </nav>
+
+      <div class="mobile-nav">
+        <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mobileMenu">☰ Menu</button>
+        <button class="menu-btn" id="themeToggleSm" title="Toggle theme">🌙</button>
+      </div>
+    </div>
+
+    <div id="mobileMenu" class="container hidden" role="dialog" aria-modal="false">
+      <div style="display:flex; gap:8px; flex-wrap:wrap; padding: 0 0 12px;">
+        <a class="tab" href="#reviews">Reviews</a>
+        <a class="tab" href="#underrated">Underrated</a>
+        <a class="tab" href="#toplists">Top Lists</a>
+        <a class="tab" href="#about">About</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="badge">🎬 Movie Reviews • 🔎 Hidden Gems • 📈 Top Lists</span>
+        <h1 class="title">Fresh takes on the films you love — and the ones you missed.</h1>
+        <p class="subtitle">Real talk movie reviews, underrated recommendations, and hand‑picked top lists. No fluff, just cinema.</p>
+        <div class="cta">
+          <a href="#latest" class="btn">Read Latest</a>
+          <a href="#underrated" class="btn secondary">Find Hidden Gems</a>
+        </div>
+      </div>
+
+      <aside class="hero-card">
+        <strong>Trending this week</strong>
+        <div class="stats">
+          <div class="stat"><b>8.7</b><span class="muted">Avg. Rating</span></div>
+          <div class="stat"><b>24</b><span class="muted">New Posts</span></div>
+          <div class="stat"><b>5</b><span class="muted">Top Lists</span></div>
+        </div>
+        <p class="subtitle" style="margin-top:10px">Follow along for quick reads & zero spoilers.</p>
+      </aside>
+    </div>
+  </section>
+
+  <main class="container">
+    <!-- Controls -->
+    <div class="controls">
+      <div class="tabs" role="tablist" aria-label="Categories">
+        <button class="tab active" data-filter="all" role="tab">All</button>
+        <button class="tab" data-filter="review" role="tab">Reviews</button>
+        <button class="tab" data-filter="underrated" role="tab">Underrated</button>
+        <button class="tab" data-filter="toplist" role="tab">Top Lists</button>
+      </div>
+      <div class="search">
+        <label class="sr-only" for="searchInput">Search posts</label>
+        <input id="searchInput" type="search" placeholder="Search: movie, director, genre..." />
+      </div>
+    </div>
+
+    <!-- Grid -->
+    <section id="latest" class="grid">
+      <!-- Sample Cards (Replace with your real posts) -->
+      <article class="card large" data-type="review" data-tags="sci-fi,denis villeneuve,dune sandworms" tabindex="0">
+        <div class="thumb">
+          <span class="label">Review</span>
+        </div>
+        <div class="content">
+          <h3 class="title-card">Dune: Part Two — A colossal, intimate epic</h3>
+          <div class="meta"><span>⭐ 9/10</span>·<span>155 min</span>·<span>Sci‑Fi</span></div>
+          <p class="excerpt">Villeneuve doubles down on scale without losing the soul. Breathtaking world‑building, ruthless politics, and sandworms that earn the IMAX.</p>
+          <a class="readmore" href="#">Read review →</a>
+        </div>
+      </article>
+
+      <article class="card" data-type="underrated" data-tags="drama,korean,thriller">
+        <div class="thumb"><span class="label">Underrated</span></div>
+        <div class="content">
+          <h3 class="title-card">Burning (2018) — Slow fire, lasting smoke</h3>
+          <div class="meta"><span>⏳ 148 min</span>·<span>Drama/Thriller</span></div>
+          <p class="excerpt">A mysterious triangle that lingers like an aftertaste. Precision filmmaking that rewards patience.</p>
+          <a class="readmore" href="#">Why it's slept on →</a>
+        </div>
+      </article>
+
+      <article class="card" data-type="toplist" data-tags="list,comedy,feel-good">
+        <div class="thumb"><span class="label">Top List</span></div>
+        <div class="content">
+          <h3 class="title-card">Top 10 Feel‑Good Comedies for Rainy Days</h3>
+          <div class="meta"><span>📚 List</span>·<span>Quick reads</span></div>
+          <p class="excerpt">From witty banter to wholesome chaos — your cozy watchlist starts here.</p>
+          <a class="readmore" href="#">See the list →</a>
+        </div>
+      </article>
+
+      <article class="card" data-type="review" data-tags="action,india,thriller">
+        <div class="thumb"><span class="label">Review</span></div>
+        <div class="content">
+          <h3 class="title-card">A Tight Indian Thriller That Actually Sticks the Landing</h3>
+          <div class="meta"><span>⭐ 8/10</span>·<span>Thriller</span></div>
+          <p class="excerpt">Lean, mean, and refreshingly grounded. Practical stakes > CGI noise.</p>
+          <a class="readmore" href="#">Read review →</a>
+        </div>
+      </article>
+
+      <article class="card" data-type="underrated" data-tags="animation,indie,tearjerker">
+        <div class="thumb"><span class="label">Underrated</span></div>
+        <div class="content">
+          <h3 class="title-card">An Indie Animation Gem You Missed</h3>
+          <div class="meta"><span>🎨 Animation</span>·<span>Family/Drama</span></div>
+          <p class="excerpt">A tender journey with painterly frames. Bring tissues.</p>
+          <a class="readmore" href="#">Discover it →</a>
+        </div>
+      </article>
+
+      <article class="card" data-type="toplist" data-tags="list,thriller,twist">
+        <div class="thumb"><span class="label">Top List</span></div>
+        <div class="content">
+          <h3 class="title-card">7 Smart Thrillers With Twists That Hold Up</h3>
+          <div class="meta"><span>📚 List</span>·<span>No spoilers</span></div>
+          <p class="excerpt">Mind‑benders that respect your time and intelligence.</p>
+          <a class="readmore" href="#">See the list →</a>
+        </div>
+      </article>
+    </section>
+
+    <!-- Socials -->
+    <section class="social" aria-labelledby="social-heading">
+      <div class="left">
+        <h2 id="social-heading" style="margin:0">Connect with me</h2>
+        <p class="muted" style="margin:0; color:var(--muted)">Get quick updates, shorts, and behind‑the‑scenes.</p>
+      </div>
+      <div class="icons">
+        <!-- Replace href with your actual links -->
+        <a class="icon-btn" href="https://t.me/yourchannel" target="_blank" rel="noopener" aria-label="Telegram">
+          <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9.033 14.672l-.376 5.296c.538 0 .77-.231 1.048-.506l2.514-2.413 5.213 3.818c.955.526 1.63.25 1.89-.885l3.423-16.02c.35-1.63-.588-2.268-1.62-1.872L1.36 9.59C-.225 10.22-.2 11.08 1.1 11.48l5.48 1.71 12.72-8.01c.6-.38 1.146-.17.695.21"/></svg>
+          Telegram
+        </a>
+        <a class="icon-btn" href="https://instagram.com/yourprofile" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5A5.5 5.5 0 1 1 6.5 13 5.5 5.5 0 0 1 12 7.5zm0 2A3.5 3.5 0 1 0 15.5 13 3.5 3.5 0 0 0 12 9.5zM18 6.3a1.2 1.2 0 1 1-1.2 1.2A1.2 1.2 0 0 1 18 6.3z"/></svg>
+          Instagram
+        </a>
+        <a class="icon-btn" href="https://youtube.com/@yourchannel" target="_blank" rel="noopener" aria-label="YouTube">
+          <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.7 15.5v-7L16 12z"/></svg>
+          YouTube
+        </a>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="hero-card">
+      <h2 style="margin: 0 0 8px">About this blog</h2>
+      <p class="subtitle">Hi! I'm <strong>Arman</strong>. I write short, honest reviews, dig up underrated movies, and curate top lists so you never run out of great watches. New posts every week — no spoilers, promise.</p>
+    </section>
+  </main>
+
+  <footer class="container">
+    <div class="foot">
+      <div class="mini">
+        <div class="logo" style="width:22px;height:22px"></div>
+        <span>CineScope © <span id="year"></span></span>
+      </div>
+      <small>Built with pure HTML • CSS • JS</small>
+    </div>
+  </footer>
+
+  <script>
+    // ----------------------
+    // Theme (Dark/Light)
+    // ----------------------
+    const root = document.documentElement;
+    const themeToggle = document.getElementById('themeToggle');
+    const themeToggleSm = document.getElementById('themeToggleSm');
+    function setTheme(mode){
+      if(mode === 'light') root.classList.add('light');
+      else root.classList.remove('light');
+      localStorage.setItem('cinescope-theme', mode);
+    }
+    function toggleTheme(){ const isLight = root.classList.toggle('light'); localStorage.setItem('cinescope-theme', isLight ? 'light' : 'dark'); }
+    ;[themeToggle, themeToggleSm].forEach(btn => btn && btn.addEventListener('click', toggleTheme));
+    const saved = localStorage.getItem('cinescope-theme');
+    if(saved) setTheme(saved);
+
+    // ----------------------
+    // Mobile Menu
+    // ----------------------
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuBtn && menuBtn.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('hidden');
+      menuBtn.setAttribute('aria-expanded', String(!isOpen));
+    });
+
+    // ----------------------
+    // Reveal on scroll (IntersectionObserver)
+    // ----------------------
+    const cards = document.querySelectorAll('.card');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('revealed'); io.unobserve(e.target); } });
+    }, { threshold: .14 });
+    cards.forEach(c => io.observe(c));
+
+    // ----------------------
+    // Filter Tabs + Search
+    // ----------------------
+    const tabs = document.querySelectorAll('.tab');
+    const searchInput = document.getElementById('searchInput');
+    let active = 'all';
+
+    function applyFilters(){
+      const q = (searchInput.value || '').toLowerCase().trim();
+      document.querySelectorAll('.card').forEach(card => {
+        const type = card.getAttribute('data-type');
+        const text = (card.innerText + ' ' + card.getAttribute('data-tags')).toLowerCase();
+        const matchesType = (active === 'all') || (type === active);
+        const matchesQuery = q === '' || text.includes(q);
+        card.style.display = (matchesType && matchesQuery) ? '' : 'none';
+      });
+    }
+
+    tabs.forEach(t => t.addEventListener('click', () => {
+      tabs.forEach(x => x.classList.remove('active'));
+      t.classList.add('active');
+      active = t.dataset.filter;
+      applyFilters();
+    }));
+    searchInput.addEventListener('input', applyFilters);
+
+    // ----------------------
+    // Year
+    // ----------------------
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // ----------------------
+    // Helper: Create a card (for future dynamic posts)
+    // ----------------------
+    /*
+    function createPost({type, title, excerpt, tags, rating}){
+      const tpl = document.createElement('article');
+      tpl.className = 'card';
+      tpl.setAttribute('data-type', type);
+      tpl.setAttribute('data-tags', (tags||[]).join(','));
+      tpl.innerHTML = `
+        <div class="thumb"><span class="label">${type === 'review' ? 'Review' : type === 'underrated' ? 'Underrated' : 'Top List'}</span></div>
+        <div class="content">
+          <h3 class="title-card">${title}</h3>
+          <div class="meta">${rating ? `<span>⭐ ${rating}/10</span>·` : ''}<span>${(tags||[]).slice(0,2).join(' / ')}</span></div>
+          <p class="excerpt">${excerpt}</p>
+          <a class="readmore" href="#">Read more →</a>
+        </div>`;
+      document.querySelector('.grid').appendChild(tpl);
+      io.observe(tpl);
+    }
+    */
+  </script>
+</body>
+</html>
