@@ -30,13 +30,17 @@
       padding: 20px;
     }
 
-    .movie-card {
-      background: #1a1a1a;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
+    .movie-card  {
+  width: 80%;
+  height: 350px;
+  background-color: #000;
+  display: flex;
+  flex-direction: column;      /* Stack image and info vertically */
+  justify-content: center;     /* Center content vertically */
+  align-items: center;         /* Center content horizontally */
+  position: relative;
+}
+
 
     .movie-card:hover {
       transform: translateY(-10px);
@@ -44,14 +48,21 @@
     }
 
     .movie-card img {
-      width: 100%;
-      height: 350px;
+      width: 88%;
+      height: 88%;
       object-fit: cover;
+      display: block;
+      margin-top: 10px;   
+      margin-bottom: 10px;   /* Gap from top set to 10px */
     }
 
     .movie-info {
-      padding: 15px;
+      width: 100%;
+      padding: 15px 0 0 0;
       text-align: center;
+      position: absolute;
+      bottom: 0;                   /* Stick to bottom of card */
+      left: 0;
     }
 
     .movie-info h3 {
@@ -71,7 +82,7 @@
   <section class="movie-grid">
     <!-- Movie 1 -->
     <div class="movie-card">
-      <img src="https://upload.wikimedia.org/wikipedia/en/7/7e/Whiplash_poster.jpg" alt="Whiplash">
+      <img src="Raman_Raghav_2.png">
       <div class="movie-info">
         <h3>Whiplash</h3>
       </div>
