@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>CineScope — Movie Blog</title>
+  <title>Reactmeyar</title>
   <meta name="description" content="Movie reviews, underrated gems, and top movie lists."/>
   <style>
     /* ----------------------
@@ -235,6 +235,12 @@
       .content {
         padding-bottom: 18px !important; /* extra space for button */
       }
+      .social .icons {
+        flex-wrap: wrap;
+        gap: 10px;
+        width: 100%;
+        justify-content: flex-start;
+      }
     }
   </style>
 </head>
@@ -338,22 +344,26 @@
       </article>
 
       <article class="card" data-type="toplist" data-tags="list,comedy,feel-good">
-        <div class="thumb"><span class="label">Top List</span></div>
+        <div class="thumb">
+          <img src="the grey.jpeg" alt="Dune: Part Two Poster" style="width:100%; height:100%; object-fit:cover;">
+          <span class="label">Top List</span></div>
         <div class="content">
-          <h3 class="title-card">Top 10 Feel‑Good Comedies for Rainy Days</h3>
-          <div class="meta"><span>📚 List</span>·<span>Quick reads</span></div>
-          <p class="excerpt">From witty banter to wholesome chaos — your cozy watchlist starts here.</p>
-          <a class="readmore" href="#">See the list →</a>
+          <h3 class="title-card">The Grey</h3>
+          
+          <p class="excerpt"><b>The Grey (2011)</b> – IMDb rating: <b>6.7/10</b> based on over 270,000 user ratings.</p>
+          <a class="readmore" href="the grey.jpeg">Read review →</a>
         </div>
       </article>
 
       <article class="card" data-type="review" data-tags="action,india,thriller">
-        <div class="thumb"><span class="label">Review</span></div>
+        <div class="thumb">
+          <img src="fall guy.jpg" alt="The Grey Poster" style="width:100%; height:100%; object-fit:cover;">
+          <span class="label">Review</span></div>
         <div class="content">
-          <h3 class="title-card">A Tight Indian Thriller That Actually Sticks the Landing</h3>
-          <div class="meta"><span>⭐ 8/10</span>·<span>Thriller</span></div>
-          <p class="excerpt">Lean, mean, and refreshingly grounded. Practical stakes > CGI noise.</p>
-          <a class="readmore" href="#">Read review →</a>
+          <h3 class="title-card">The Fall Guy</h3>
+          <div class="meta"><span>⭐ 6.8/10</span>·<span>Thriller</span></div>
+          <p class="excerpt">The Fall Guy (2024) is a fun-filled action-comedy where Ryan Gosling shines ....</p>
+          <a class="readmore" href="readmore_review.html">Read review →</a>
         </div>
       </article>
 
@@ -386,11 +396,11 @@
       </div>
       <div class="icons">
         <!-- Replace href with your actual links -->
-        <a class="icon-btn" href="https://t.me/yourchannel" target="_blank" rel="noopener" aria-label="Telegram">
+        <a class="icon-btn" href="https://t.me/reactmeyar" target="_blank" rel="noopener" aria-label="Telegram">
           <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9.033 14.672l-.376 5.296c.538 0 .77-.231 1.048-.506l2.514-2.413 5.213 3.818c.955.526 1.63.25 1.89-.885l3.423-16.02c.35-1.63-.588-2.268-1.62-1.872L1.36 9.59C-.225 10.22-.2 11.08 1.1 11.48l5.48 1.71 12.72-8.01c.6-.38 1.146-.17.695.21"/></svg>
           Telegram
         </a>
-        <a class="icon-btn" href="https://instagram.com/yourprofile" target="_blank" rel="noopener" aria-label="Instagram">
+        <a class="icon-btn" href="https://www.instagram.com/reactmeyar?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener" aria-label="Instagram">
           <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5A5.5 5.5 0 1 1 6.5 13 5.5 5.5 0 0 1 12 7.5zm0 2A3.5 3.5 0 1 0 15.5 13 3.5 3.5 0 0 0 12 9.5zM18 6.3a1.2 1.2 0 1 1-1.2 1.2A1.2 1.2 0 0 1 18 6.3z"/></svg>
           Instagram
         </a>
@@ -412,7 +422,7 @@
     <div class="foot">
       <div class="mini">
         <div class="logo" style="width:22px;height:22px"></div>
-        <span>CineScope © <span id="year"></span></span>
+        <span>Reactmeyar © <span id="year"></span></span>
       </div>
       <small>Built with pure HTML • CSS • JS</small>
     </div>
