@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movie Review</title>
+  <style>
+    /* Base styles */
+    body {
+      font-family: Arial, sans-serif;
+      background: #0d1117;
+      color: white;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    /* Layout for poster + content */
+    .review-header {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      align-items: flex-start;
+    }
+
+    .poster {
+      width: 100%;
+      max-width: 350px;
+      border-radius: 12px;
+      object-fit: cover;
+    }
+
+    .content {
+      flex: 1;
+      min-width: 250px;
+    }
+
+    .title {
+      font-size: 2rem;
+      margin: 0;
+    }
+
+    .rating {
+      font-size: 1.2rem;
+      margin: 10px 0;
+      color: gold;
+    }
+
+    .review {
+      margin-top: 20px;
+      line-height: 1.6;
+      font-size: 1rem;
+    }
+
+    a.back-link {
+      display: inline-block;
+      margin-top: 20px;
+      color: cyan;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .review-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .poster {
+        max-width: 90%;
+      }
+      .title {
+        font-size: 1.5rem;
+      }
+      .review {
+        font-size: 0.95rem;
+        text-align: justify;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="review-header">
+      <img src="fall guy.jpg" alt="Movie Poster" class="poster">
+      <div class="content">
+        <h1 class="title">WEDNESDAY SEASON 2</h1>
+        <div class="rating">⭐ 6.9/10</div>
+      </div>
+    </div>
+
+    <div class="review">
+      <p>
+      <p><b>The Fall Guy (2024)</b> ek action-comedy film hai jise David Leitch ne direct kiya hai. Film ek stuntman Colt Seavers (Ryan Gosling) ki kahani hai jo ek accident ke baad industry chhod deta hai, lekin jab ek bade action star gayab ho jaata hai toh use dobara wapas bulaya jaata hai. Yahan uski mulakaat hoti hai apni ex-girlfriend aur film director Jody Moreno (Emily Blunt) se.</p>
+
+<p>Movie ka tone ekdum <b>fun, romantic aur thrilling</b> hai. Isme ek taraf over-the-top action sequences aur daredevil stunts hain, toh doosri taraf Colt aur Jody ke beech ki <b>chemistry aur romance</b> story ko emotional touch deti hai. Ryan Gosling apne comic timing aur charm se poori film ko entertaining banate hain.</p>
+
+<p>Director David Leitch ne khud ek stuntman hone ke naate, stunts ko real aur spectacular banaya hai. Helicopter chases, car crashes aur hand-to-hand combat scenes kaafi engaging hain. Saath hi, film ek <b>tribute to stunt community</b> bhi hai jo hamesha camera ke peeche rehti hai.</p>
+
+<p>Critics aur audience ne movie ko mostly positive response diya hai. Rotten Tomatoes par ~82% critics score aur Metacritic par ~73/100 mila hai. IMDb par rating abhi stabilise ho rahi hai, lekin overall response <b>positive aur fun-filled entertainer</b> ka hai.</p>
+
+<p><b>Mera Review:</b> The Fall Guy ek perfect popcorn entertainer hai jisme action, comedy aur romance sab kuch balance hai. Agar aapko light-hearted, stunt-packed Hollywood films pasand hain, toh ye zaroor dekhne layak hai. ⭐⭐⭐⭐/5</p>
+
+      </p>
+      
+    </div>
+
+    <a href="index.html" class="back-link">← Back to Movies</a>
+  </div>
+</body>
+</html>
