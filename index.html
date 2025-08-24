@@ -158,14 +158,15 @@
     @media (max-width: 1100px) { .card { grid-column: span 6; } }
     @media (max-width: 700px) { .card, .card.large { grid-column: span 12; } }
 
-    .thumb { height: 54%; background:
-      radial-gradient(120% 80% at 80% 20%, rgba(109,214,255,.35), transparent 60%),
-      radial-gradient(120% 80% at 10% 80%, rgba(167,112,255,.35), transparent 60%),
-      linear-gradient(180deg, #0e1726, #0b0f14);
-      position:relative; overflow:hidden;
+    .thumb {
+      height: 54%;
+      position: relative;
+      overflow: hidden;
+      background: none; /* Remove gradient background */
     }
-    .thumb::after { content:""; position:absolute; inset:0; background: repeating-linear-gradient(90deg, transparent 0 6px, rgba(255,255,255,.04) 6px 7px); transform: translateX(-20%); animation: shimmer 8s linear infinite; }
-    @keyframes shimmer { to { transform: translateX(20%); } }
+    .thumb::after {
+      display: none; /* Remove shimmer animation */
+    }
 
     .label { position:absolute; top: 12px; left: 12px; padding:6px 10px; border-radius: 999px; font-size: 12px; background: rgba(0,0,0,.5); border: 1px solid rgba(255,255,255,.18); }
 
@@ -296,18 +297,21 @@
       <!-- Sample Cards (Replace with your real posts) -->
       <article class="card large" data-type="review" data-tags="sci-fi,denis villeneuve,dune sandworms" tabindex="0">
         <div class="thumb">
+          <img src="wednesday season 2.jpg" alt="wednesday season 2 Two Poster" style="width:100%; height:100%; object-fit:cover;">
           <span class="label">Review</span>
         </div>
         <div class="content">
-          <h3 class="title-card">Dune: Part Two — A colossal, intimate epic</h3>
-          <div class="meta"><span>⭐ 9/10</span>·<span>155 min</span>·<span>Sci‑Fi</span></div>
-          <p class="excerpt">Villeneuve doubles down on scale without losing the soul. Breathtaking world‑building, ruthless politics, and sandworms that earn the IMAX.</p>
-          <a class="readmore" href="#">Read review →</a>
+          <h3 class="title-card">wednesday season-2</h3>
+          <div class="meta"><span>⭐ 8/10</span>·<span>2 Seasons</span>·<span>Fantasy</span></div>
+          <p class="excerpt">Smart, sarcastic and a little dead inside, Wednesday Addams investigates twisted mysteries while making new friends — and foes — at Nevermore Academy.</p>
+          <a class="readmore" href="read_more_tab.html">Read review →</a>
         </div>
       </article>
 
       <article class="card" data-type="underrated" data-tags="drama,korean,thriller">
-        <div class="thumb"><span class="label">Underrated</span></div>
+        <div class="thumb">
+          <img src="1507a9517036279014dccdfcee376a2ba07f2d1f.avif" alt="Dune: Part Two Poster" style="width:100%; height:100%; object-fit:cover;">
+          <span class="label">Underrated</span></div>
         <div class="content">
           <h3 class="title-card">Burning (2018) — Slow fire, lasting smoke</h3>
           <div class="meta"><span>⏳ 148 min</span>·<span>Drama/Thriller</span></div>
